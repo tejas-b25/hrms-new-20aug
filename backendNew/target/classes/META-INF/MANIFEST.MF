@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: com.quantumsoft.hrms.Human_Resource_Website.HumanResourceWeb
+ siteApplication
+
