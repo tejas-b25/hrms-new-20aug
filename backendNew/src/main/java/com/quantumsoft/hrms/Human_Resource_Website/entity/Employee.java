@@ -82,7 +82,7 @@ public class Employee {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate joiningDate;
 
-    @FutureOrPresent(message = "Probation end date cannot be in the past")
+   // @FutureOrPresent(message = "Probation end date cannot be in the past")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate probationEndDate;
 
@@ -165,4 +165,5 @@ public class Employee {
     @JsonBackReference("department-head")
     private Department managedDepartments;
 }
+
 
