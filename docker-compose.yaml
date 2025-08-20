@@ -1,0 +1,49 @@
+version: '3.4'
+
+services:
+  springboot-service:
+    image: tejas2506/backend:q1
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-service:3306/hrms2
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql-service:
+        condition: service_healthy
+    networks:
+      - mynetwork
+    restart: unless-stopped
+
+  frontend:
+    image: tejas2506/frontend:q1
+    ports:
+      - "4200:80"
+    depends_on:
+      - mysql-service
+    networks:
+      - mynetwork
+
+  mysql-service:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "hrms2"
+      MYSQL_PASSWORD: "root"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - mynetwork
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+networks:
+  mynetwork:
+
+volumes:
+  mysql-data:
